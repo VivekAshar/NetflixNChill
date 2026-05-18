@@ -1,48 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflix Birthday</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix Birthday Splash</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#000;
+      overflow:hidden;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    /* SPLASH SCREEN */
+
+    .splash-screen{
+      position:fixed;
+      inset:0;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:#000;
+
+      overflow:hidden;
+
+      z-index:9999;
+
+      animation:fadeOut 0.8s ease 3.8s forwards;
+    }
+
+    /* BACKGROUND RED AMBIENT GLOW */
+
+    .ambient-glow{
+      position:absolute;
+
+      width:500px;
+      height:500px;
+
+      background:radial-gradient(
+        circle,
+        rgba(229,9,20,0.18) 0%,
+        rgba(229,9,20,0.08) 30%,
+        transparent 75%
+      );
+
+      filter:blur(35px);
+    }
+
+    /* NETFLIX N CONTAINER */
+
+    .netflix-n{
+      position:relative;
+
+      width:150px;
+      height:240px;
+
+      transform:scale(0.95);
+
+      animation:logoAppear 1s ease forwards;
+    }
+
+    /* LEFT BAR */
+
+    .n-left{
+      position:absolute;
+
+      left:0;
+      top:0;
+
+      width:46px;
+      height:100%;
+
+      background:linear-gradient(
+        to right,
+        #ff1a22 0%,
+        #e50914 45%,
+        #9b040d 100%
+      );
+
+      box-shadow:
+        -4px 0 18px rgba(229,9,20,0.55),
+        inset -8px 0 18px rgba(0,0,0,0.35);
+
+      z-index:1;
+
+      animation:leftBarGrow 0.55s cubic-bezier(0.16,1,0.3,1) 0.4s backwards;
+    }
+
+    /* DIAGONAL BAR */
+
+    .n-diagonal{
+      position:absolute;
+
+      top:0;
+      left:8px;
+
+      width:42px;
+      height:100%;
+
+      background:linear-gradient(
+        to bottom,
+        #ff2a30 0%,
+        #f40612 25%,
+        #d70711 60%,
+        #8a0508 100%
+      );
+
+      /* THIS CREATES \ DIRECTION */
+      transform:skewX(22deg);
+
+      transform-origin:top;
+
+      box-shadow:
+        0 0 24px rgba(229,9,20,0.65),
+        inset -6px 0 18px rgba(0,0,0,0.25);
+
+      z-index:3;
+
+      animation:diagonalSlideIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.7s backwards;
+  }
+
+    /* RIGHT BAR */
+
+    .n-right{
+      position:absolute;
+
+      right:0;
+      top:0;
+
+      width:46px;
+      height:100%;
+
+      background:linear-gradient(
+        to left,
+        #b20710 0%,
+        #7a0407 100%
+      );
+
+      box-shadow:
+        4px 0 18px rgba(229,9,20,0.5),
+        inset 8px 0 18px rgba(0,0,0,0.38);
+
+      z-index:2;
+
+      animation:rightBarGrow 0.55s cubic-bezier(0.16,1,0.3,1) 1s backwards;
+    }
+
+    /* CINEMATIC FLOOR GLOW */
+
+    .netflix-n::after{
+      content:"";
+
+      position:absolute;
+
+      bottom:-26px;
+      left:12%;
+
+      width:76%;
+      height:22px;
+
+      background:rgba(229,9,20,0.35);
+
+      filter:blur(16px);
+
+      border-radius:50%;
+
+      z-index:0;
+    }
+
+    /* SUBTLE PULSE */
+
+    .netflix-n::before{
+      content:"";
+
+      position:absolute;
+
+      inset:-20px;
+
+      border-radius:20px;
+
+      background:radial-gradient(
+        circle,
+        rgba(229,9,20,0.08) 0%,
+        transparent 75%
+      );
+
+      filter:blur(20px);
+
+      animation:pulseGlow 2s ease-in-out infinite;
+
+      z-index:0;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes logoAppear{
+      from{
+        transform:scale(0.88);
+        opacity:0;
+      }
+
+      to{
+        transform:scale(1);
+        opacity:1;
+      }
+    }
+
+    @keyframes leftBarGrow{
+      from{
+        transform:scaleY(0);
+        opacity:0;
+      }
+
+      to{
+        transform:scaleY(1);
+        opacity:1;
+      }
+    }
+
+    @keyframes rightBarGrow{
+      from{
+        transform:scaleY(0);
+        opacity:0;
+      }
+
+      to{
+        transform:scaleY(1);
+        opacity:1;
+      }
+    }
+
+    @keyframes diagonalSlideIn{
+
+      from{
+        transform:skewX(22deg) translateY(-40px);
+        opacity:0;
+      }
+
+      to{
+        transform:skewX(22deg) translateY(0);
+        opacity:1;
+      }
+
+    }
+
+    @keyframes pulseGlow{
+      0%{
+        opacity:0.4;
+      }
+
+      50%{
+        opacity:0.9;
+      }
+
+      100%{
+        opacity:0.4;
+      }
+    }
+
+    @keyframes fadeOut{
+      to{
+        opacity:0;
+        visibility:hidden;
+      }
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px){
+
+      .netflix-n{
+        width:105px;
+        height:170px;
+      }
+
+      .n-left,
+      .n-right{
+        width:34px;
+      }
+
+      .n-diagonal{
+        width:40px;
+        left:30px;
+      }
+
+    }
+
+  </style>
 </head>
+
 <body>
-  <!-- Splash Screen -->
+
   <div class="splash-screen">
-    <!-- Netflix 3D "N" Logo -->
-    <div class="netflix-logo">
-      <div class="netflix-n">
-        <!-- Left vertical bar -->
-        <div class="n-left"></div>
-        <!-- Diagonal bar -->
-        <div class="n-diagonal"></div>
-        <!-- Right vertical bar -->
-        <div class="n-right"></div>
-      </div>
+
+    <div class="ambient-glow"></div>
+
+    <div class="netflix-n">
+
+      <div class="n-left"></div>
+
+      <div class="n-diagonal"></div>
+
+      <div class="n-right"></div>
+
     </div>
+
   </div>
 
-  <!-- Optional TUDUM sound -->
-  <!-- Plays automatically if the file exists at /assets/tudum.mp3 -->
-  <!-- Remove this audio tag if you don't have the sound file -->
+  <!-- OPTIONAL TUDUM AUDIO -->
+
   <audio id="tudum-sound" preload="auto">
     <source src="assets/tudum.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Play TUDUM sound if it exists (ignore if file not found)
-    const tudumSound = document.getElementById('tudum-sound');
-    if (tudumSound) {
-      tudumSound.play().catch(() => {
-        // Autoplay blocked or file not found - silently fail
-        console.log('TUDUM sound not available or autoplay blocked');
-      });
-    }
 
-    // Redirect to login page after 3 seconds (matching Netflix timing)
+    const tudumSound = document.getElementById("tudum-sound");
+
+    window.addEventListener("load", () => {
+
+      if(tudumSound){
+
+        tudumSound.play().catch(() => {
+          console.log("Autoplay blocked");
+        });
+
+      }
+
+    });
+
+    /* REDIRECT */
+
     setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 3000);
+
+      window.location.href = "login.html";
+
+    }, 4500);
+
   </script>
+
 </body>
 </html>

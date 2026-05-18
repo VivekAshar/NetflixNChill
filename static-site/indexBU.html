@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Birthday</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen">
+    <!-- Netflix 3D "N" Logo -->
+    <div class="netflix-logo">
+      <div class="netflix-n">
+        <!-- Left vertical bar -->
+        <div class="n-left"></div>
+        <!-- Diagonal bar -->
+        <div class="n-diagonal"></div>
+        <!-- Right vertical bar -->
+        <div class="n-right"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional TUDUM sound -->
+  <!-- Plays automatically if the file exists at /assets/tudum.mp3 -->
+  <!-- Remove this audio tag if you don't have the sound file -->
+  <audio id="tudum-sound" preload="auto">
+    <source src="assets/tudum.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Play TUDUM sound if it exists (ignore if file not found)
+    const tudumSound = document.getElementById('tudum-sound');
+    if (tudumSound) {
+      tudumSound.play().catch(() => {
+        // Autoplay blocked or file not found - silently fail
+        console.log('TUDUM sound not available or autoplay blocked');
+      });
+    }
+
+    // Redirect to login page after 3 seconds (matching Netflix timing)
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 3000);
+  </script>
+</body>
+</html>
