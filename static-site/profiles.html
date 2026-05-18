@@ -7,20 +7,21 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="profile-page">
+  <div class="profile-page fade-in">
     <div class="profile-container">
       <h1 class="profile-heading">Who's watching?</h1>
       
-      <div class="profile-grid">
-        <!-- Profile cards will be added in Part 3 -->
-        <div style="text-align: center; color: var(--netflix-text-grey); padding: var(--space-3xl);">
-          <p style="font-size: var(--text-xl); margin-bottom: var(--space-md);">✅ Login Successful!</p>
-          <p style="font-size: var(--text-base);">Profile selection page coming in Part 3...</p>
-        </div>
+      <!-- Profile grid - populated dynamically by profiles.js -->
+      <div id="profile-grid" class="profile-grid">
+        <!-- Profiles will be injected here by JavaScript -->
       </div>
     </div>
   </div>
 
+  <!-- Import config.js first (contains profile data) -->
   <script src="data/config.js"></script>
+  
+  <!-- Import profile logic -->
+  <script src="js/profiles.js"></script>
 </body>
 </html>

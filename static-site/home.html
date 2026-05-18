@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Birthday</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-logo">NETFLIX</div>
+      <div class="navbar-menu">
+        <a href="#" class="navbar-link active">Home</a>
+        <a href="#" class="navbar-link">My List</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content area -->
+  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 68px;">
+    <div style="text-align: center; max-width: 600px; padding: var(--space-3xl);">
+      <h1 style="font-size: var(--text-4xl); margin-bottom: var(--space-xl); color: var(--netflix-white);">
+        ✅ Profile Selected!
+      </h1>
+      <p style="font-size: var(--text-xl); color: var(--netflix-text-grey); margin-bottom: var(--space-lg);">
+        Welcome to the main page.
+      </p>
+      <p style="font-size: var(--text-base); color: var(--netflix-light-grey);">
+        The hero banner, movie rows, and interactive tiles will be added in Part 4...
+      </p>
+      <div style="margin-top: var(--space-2xl);">
+        <a href="profiles.html" class="btn btn-secondary" style="display: inline-flex;">
+          ← Back to Profiles
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/config.js"></script>
+  <script>
+    // Display selected profile name (optional)
+    const selectedProfile = sessionStorage.getItem('selectedProfile');
+    if (selectedProfile) {
+      const profile = JSON.parse(selectedProfile);
+      console.log('Selected profile:', profile.name);
+    }
+  </script>
+</body>
+</html>
