@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Can you see this?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .test-container {
+      text-align: center;
+      padding: 40px;
+      background: #141414;
+      border-radius: 8px;
+      max-width: 600px;
+    }
+    h1 {
+      color: #E50914;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .status {
+      background: #2F2F2F;
+      padding: 20px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .success {
+      color: #46d369;
+    }
+    .error {
+      color: #E50914;
+    }
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      background: #E50914;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    a:hover {
+      background: #F40612;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>✅ Test Page</h1>
+    
+    <div class="status">
+      <p class="success">If you can see this page, the HTML is working!</p>
+    </div>
+
+    <h2>Quick Diagnosis:</h2>
+    <div class="status">
+      <p><strong>Issue:</strong> Can't see splash screen or login page?</p>
+      <p><strong>Likely Causes:</strong></p>
+      <ol style="text-align: left; max-width: 400px; margin: 20px auto;">
+        <li>CSS file path issue</li>
+        <li>VS Code Live Server not serving from correct folder</li>
+        <li>Browser cache</li>
+        <li>JavaScript console errors</li>
+      </ol>
+    </div>
+
+    <h2>Test the pages:</h2>
+    <div>
+      <a href="index.html">Test Splash Screen</a>
+      <a href="login.html">Test Login Page</a>
+      <a href="profiles.html">Test Profiles Page</a>
+    </div>
+
+    <div class="status" style="margin-top: 30px;">
+      <p><strong>Instructions:</strong></p>
+      <ol style="text-align: left; max-width: 500px; margin: 20px auto;">
+        <li>Right-click on <code>index.html</code> in VS Code</li>
+        <li>Select "Open with Live Server"</li>
+        <li>Press <strong>F12</strong> to open DevTools</li>
+        <li>Check the <strong>Console</strong> tab for errors</li>
+        <li>Check the <strong>Network</strong> tab - is <code>style.css</code> loading?</li>
+        <li>Try a hard refresh: <strong>Ctrl+Shift+R</strong> (Windows) or <strong>Cmd+Shift+R</strong> (Mac)</li>
+      </ol>
+    </div>
+
+    <h2>File Structure Check:</h2>
+    <div class="status">
+      <pre style="text-align: left; background: #000; padding: 20px; border-radius: 4px; overflow-x: auto;">
+static-site/
+├── index.html          ← Splash screen
+├── login.html          ← Login page
+├── profiles.html       ← Profile selection
+├── home.html           ← Main page (placeholder)
+├── css/
+│   └── style.css      ← Must be here!
+├── js/
+│   ├── login.js
+│   ├── profiles.js
+│   └── tmdb.js
+└── data/
+    └── config.js
+      </pre>
+    </div>
+
+    <div class="status">
+      <p class="error"><strong>Common Issue:</strong></p>
+      <p>Make sure you're opening <code>index.html</code> from the <code>static-site</code> folder, not from a parent directory!</p>
+    </div>
+  </div>
+
+  <script>
+    console.log('✅ Test page JavaScript is working!');
+    console.log('Location:', window.location.href);
+    console.log('If you see this in console, JS is fine.');
+  </script>
+</body>
+</html>
