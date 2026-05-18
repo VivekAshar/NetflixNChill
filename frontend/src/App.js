@@ -7,16 +7,21 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
   useEffect(() => {
+    const helloWorldApi = async () => {
+      try {
+        const response = await axios.get(`${API}/`);
+        if (process.env.NODE_ENV === 'development') {
+          console.log(response.data.message);
+        }
+      } catch (e) {
+        // Log errors only in development; use proper error tracking in production
+        if (process.env.NODE_ENV === 'development') {
+          console.error(e, `errored out requesting / api`);
+        }
+      }
+    };
+    
     helloWorldApi();
   }, []);
 
