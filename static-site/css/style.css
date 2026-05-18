@@ -992,3 +992,198 @@ input, textarea, select {
     height: 170px;
   }
 }
+
+
+/* ============================================================
+   SPLASH SCREEN (index.html)
+   ============================================================ */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--netflix-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: splashFadeOut 0.5s ease 3s forwards;
+}
+
+.splash-logo {
+  font-size: 120px;
+  font-weight: var(--font-weight-bold);
+  color: var(--netflix-red);
+  letter-spacing: -8px;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: netflixLogoReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+}
+
+@keyframes netflixLogoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-5deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes splashFadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* Mobile splash logo */
+@media (max-width: 768px) {
+  .splash-logo {
+    font-size: 80px;
+    letter-spacing: -5px;
+  }
+}
+
+/* ============================================================
+   LOGIN PAGE BACKGROUND
+   ============================================================ */
+.login-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.8) 100%
+    ),
+    url('https://images.unsplash.com/photo-1574267432644-f02b5ab8c935?w=1920') center/cover;
+  filter: blur(3px);
+  z-index: -1;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  position: relative;
+}
+
+.login-logo {
+  position: absolute;
+  top: var(--space-xl);
+  left: var(--space-xl);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--netflix-red);
+  letter-spacing: -1px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: var(--space-3xl) var(--space-2xl);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+}
+
+.login-heading {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2xl);
+  text-align: left;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.login-error {
+  padding: var(--space-md);
+  background-color: rgba(229, 9, 20, 0.1);
+  border: 1px solid var(--netflix-red);
+  border-radius: var(--radius-md);
+  color: var(--netflix-red);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-md);
+  animation: errorShake 0.4s ease;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.login-form .form-input {
+  padding: var(--space-md);
+  background-color: var(--netflix-medium-grey);
+  border: 1px solid var(--netflix-light-grey);
+  border-radius: var(--radius-md);
+  color: var(--netflix-white);
+  font-size: var(--text-base);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.login-form .form-input:focus {
+  border-color: var(--netflix-white);
+  background-color: #454545;
+}
+
+.login-form .form-input::placeholder {
+  color: var(--netflix-light-grey);
+}
+
+.login-submit {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background-color: var(--netflix-red);
+  color: var(--netflix-white);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-bold);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.login-submit:hover {
+  background-color: var(--netflix-red-hover);
+}
+
+.login-submit:disabled {
+  background-color: var(--netflix-light-grey);
+  cursor: not-allowed;
+}
+
+/* Mobile login adjustments */
+@media (max-width: 768px) {
+  .login-container {
+    padding: var(--space-xl) var(--space-lg);
+  }
+  
+  .login-logo {
+    font-size: var(--text-2xl);
+  }
+  
+  .login-heading {
+    font-size: var(--text-2xl);
+  }
+}

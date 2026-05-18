@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - Netflix Birthday</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Blurred background -->
+  <div class="login-background"></div>
+
+  <div class="login-page">
+    <!-- Netflix logo -->
+    <div class="login-logo">NETFLIX</div>
+
+    <!-- Login form container -->
+    <div class="login-container">
+      <h1 class="login-heading">Sign In</h1>
+
+      <!-- Error message (hidden by default) -->
+      <div id="error-message" class="login-error hidden">
+        Incorrect username or password. Please try again.
+      </div>
+
+      <!-- Login form -->
+      <form id="login-form" class="login-form">
+        <input 
+          type="text" 
+          id="username" 
+          class="form-input" 
+          placeholder="Email or username" 
+          required
+          autocomplete="username"
+        >
+        
+        <input 
+          type="password" 
+          id="password" 
+          class="form-input" 
+          placeholder="Password" 
+          required
+          autocomplete="current-password"
+        >
+        
+        <button type="submit" class="login-submit">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Import config.js first (contains credentials) -->
+  <script src="data/config.js"></script>
+  
+  <!-- Import login logic -->
+  <script src="js/login.js"></script>
+</body>
+</html>
