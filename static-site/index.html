@@ -9,7 +9,17 @@
 <body>
   <!-- Splash Screen -->
   <div class="splash-screen">
-    <div class="splash-logo">N</div>
+    <!-- Netflix 3D "N" Logo -->
+    <div class="netflix-logo">
+      <div class="netflix-n">
+        <!-- Left vertical bar -->
+        <div class="n-left"></div>
+        <!-- Diagonal bar -->
+        <div class="n-diagonal"></div>
+        <!-- Right vertical bar -->
+        <div class="n-right"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Optional TUDUM sound -->
@@ -29,10 +39,10 @@
       });
     }
 
-    // Redirect to login page after 3.5 seconds (allowing animation to complete)
+    // Redirect to login page after 3 seconds (matching Netflix timing)
     setTimeout(() => {
       window.location.href = 'login.html';
-    }, 3500);
+    }, 3000);
   </script>
 </body>
 </html>
