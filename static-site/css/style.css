@@ -1014,19 +1014,18 @@ input, textarea, select {
 /* Netflix Logo Container */
 .netflix-logo {
   position: relative;
-  width: 300px;
-  height: 450px;
+  width: 200px;
+  height: 280px;
   opacity: 0;
-  transform: scale(0.3);
-  animation: netflixLogoReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  transform: scale(0.5);
+  animation: netflixLogoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
-/* Netflix "N" Structure - 3D Effect */
+/* Netflix "N" Structure - Proper Connected Design */
 .netflix-n {
   position: relative;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
 }
 
 /* Left vertical bar of N */
@@ -1034,31 +1033,37 @@ input, textarea, select {
   position: absolute;
   left: 0;
   top: 0;
-  width: 80px;
+  width: 50px;
   height: 100%;
-  background: linear-gradient(165deg, #e50914 0%, #b20710 100%);
+  background: linear-gradient(to right, #e50914 0%, #b20710 100%);
   box-shadow: 
-    0 0 40px rgba(229, 9, 20, 0.5),
-    inset -20px 0 40px rgba(0, 0, 0, 0.3);
-  transform-origin: center;
-  animation: barSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+    -3px 0 15px rgba(229, 9, 20, 0.6),
+    inset -5px 0 20px rgba(0, 0, 0, 0.3);
+  transform-origin: top center;
+  animation: leftBarGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+  z-index: 1;
 }
 
-/* Diagonal bar of N */
+/* Diagonal connecting bar - THE KEY TO MAKING IT LOOK LIKE AN "N" */
 .n-diagonal {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 115px;
-  height: 100%;
-  background: linear-gradient(165deg, #e50914 0%, #f40612 50%, #b20710 100%);
+  left: 10px;
+  bottom: 0;
+  width: 58px;
+  height: 115%;
+  background: linear-gradient(to bottom right, 
+    #e50914 0%, 
+    #f40612 30%, 
+    #e50914 60%, 
+    #b20710 100%
+  );
   transform-origin: bottom left;
-  transform: skewY(25deg);
+  transform: rotate(29deg);
   box-shadow: 
-    0 0 50px rgba(229, 9, 20, 0.6),
-    inset -10px 0 30px rgba(0, 0, 0, 0.2);
-  animation: diagonalSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
-  z-index: 2;
+    0 0 30px rgba(229, 9, 20, 0.7),
+    inset -8px -8px 25px rgba(0, 0, 0, 0.2);
+  animation: diagonalSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s backwards;
+  z-index: 3;
 }
 
 /* Right vertical bar of N */
@@ -1066,24 +1071,39 @@ input, textarea, select {
   position: absolute;
   right: 0;
   top: 0;
-  width: 80px;
+  width: 50px;
   height: 100%;
-  background: linear-gradient(165deg, #b20710 0%, #8a0508 100%);
+  background: linear-gradient(to right, #b20710 0%, #8a0508 100%);
   box-shadow: 
-    0 0 40px rgba(229, 9, 20, 0.5),
-    inset 20px 0 40px rgba(0, 0, 0, 0.5);
-  transform-origin: center;
-  animation: barSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
+    3px 0 15px rgba(229, 9, 20, 0.6),
+    inset 5px 0 20px rgba(0, 0, 0, 0.4);
+  transform-origin: top center;
+  animation: rightBarGrow 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards;
+  z-index: 1;
+}
+
+/* Add subtle 3D depth to the bars */
+.n-left::before,
+.n-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
 }
 
 /* Main logo reveal animation */
 @keyframes netflixLogoReveal {
   0% {
     opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    opacity: 1;
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;
@@ -1091,8 +1111,8 @@ input, textarea, select {
   }
 }
 
-/* Left/Right bar slide animation */
-@keyframes barSlideIn {
+/* Left bar grows from top */
+@keyframes leftBarGrow {
   0% {
     transform: scaleY(0);
     opacity: 0;
@@ -1103,14 +1123,26 @@ input, textarea, select {
   }
 }
 
-/* Diagonal bar animation */
-@keyframes diagonalSlideIn {
+/* Right bar grows from top */
+@keyframes rightBarGrow {
   0% {
-    transform: skewY(25deg) scaleY(0);
+    transform: scaleY(0);
     opacity: 0;
   }
   100% {
-    transform: skewY(25deg) scaleY(1);
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Diagonal slides in from bottom-left to top-right */
+@keyframes diagonalSlideIn {
+  0% {
+    transform: rotate(29deg) scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(29deg) scaleY(1);
     opacity: 1;
   }
 }
@@ -1126,33 +1158,35 @@ input, textarea, select {
 /* Mobile splash logo - smaller size */
 @media (max-width: 768px) {
   .netflix-logo {
-    width: 200px;
-    height: 300px;
+    width: 140px;
+    height: 200px;
   }
   
   .n-left,
   .n-right {
-    width: 55px;
+    width: 36px;
   }
   
   .n-diagonal {
-    width: 80px;
+    width: 42px;
+    left: 7px;
   }
 }
 
 @media (max-width: 480px) {
   .netflix-logo {
-    width: 150px;
-    height: 225px;
+    width: 120px;
+    height: 170px;
   }
   
   .n-left,
   .n-right {
-    width: 40px;
+    width: 30px;
   }
   
   .n-diagonal {
-    width: 60px;
+    width: 36px;
+    left: 6px;
   }
 }
 
