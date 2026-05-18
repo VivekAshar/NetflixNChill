@@ -1044,20 +1044,20 @@ input, textarea, select {
   z-index: 1;
 }
 
-/* Diagonal connecting bar - THE KEY TO MAKING IT LOOK LIKE AN "N" */
+/* Diagonal connecting bar - FROM TOP-LEFT TO BOTTOM-RIGHT */
 .n-diagonal {
   position: absolute;
   left: 10px;
-  bottom: 0;
+  top: 0;
   width: 58px;
   height: 115%;
-  background: linear-gradient(to bottom right, 
+  background: linear-gradient(to bottom, 
     #e50914 0%, 
     #f40612 30%, 
     #e50914 60%, 
     #b20710 100%
   );
-  transform-origin: bottom left;
+  transform-origin: top left;
   transform: rotate(29deg);
   box-shadow: 
     0 0 30px rgba(229, 9, 20, 0.7),
