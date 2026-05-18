@@ -3,49 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflix Birthday</title>
+  <title>Netflix Birthday - Home</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="navbar-content">
       <div class="navbar-logo">NETFLIX</div>
-      <div class="navbar-menu">
+      <div class="navbar-menu" id="navbar-menu">
         <a href="#" class="navbar-link active">Home</a>
         <a href="#" class="navbar-link">My List</a>
+        <button class="navbar-profile" id="profile-btn">
+          <img src="assets/profiles/profile1.jpg" alt="Profile" class="navbar-profile-img" onerror="this.src='https://ui-avatars.com/api/?name=User&size=32&background=E50914&color=fff'">
+        </button>
       </div>
+      <!-- Mobile hamburger -->
+      <button class="navbar-hamburger" id="hamburger-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
 
-  <!-- Main content area -->
-  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 68px;">
-    <div style="text-align: center; max-width: 600px; padding: var(--space-3xl);">
-      <h1 style="font-size: var(--text-4xl); margin-bottom: var(--space-xl); color: var(--netflix-white);">
-        ✅ Profile Selected!
-      </h1>
-      <p style="font-size: var(--text-xl); color: var(--netflix-text-grey); margin-bottom: var(--space-lg);">
-        Welcome to the main page.
-      </p>
-      <p style="font-size: var(--text-base); color: var(--netflix-light-grey);">
-        The hero banner, movie rows, and interactive tiles will be added in Part 4...
-      </p>
-      <div style="margin-top: var(--space-2xl);">
-        <a href="profiles.html" class="btn btn-secondary" style="display: inline-flex;">
-          ← Back to Profiles
-        </a>
+  <!-- Hero Banner -->
+  <section class="hero" id="hero">
+    <img src="" alt="Hero" class="hero-image" id="hero-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title" id="hero-title">Loading...</h1>
+      <p class="hero-subtitle" id="hero-subtitle"></p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary btn-lg">
+          <svg class="btn-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Play
+        </button>
+        <button class="btn btn-secondary btn-lg">
+          <svg class="btn-icon" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 8v8M12 16h.01"/></svg>
+          More Info
+        </button>
       </div>
     </div>
+  </section>
+
+  <!-- Content Rows Container -->
+  <div id="content-rows" class="fade-in">
+    <!-- Rows will be dynamically injected here by home.js -->
   </div>
 
+  <!-- Loading Indicator -->
+  <div id="loading-indicator" class="loading-indicator">
+    <div class="loading-spinner"></div>
+    <p>Loading your birthday experience...</p>
+  </div>
+
+  <!-- Scripts -->
   <script src="data/config.js"></script>
-  <script>
-    // Display selected profile name (optional)
-    const selectedProfile = sessionStorage.getItem('selectedProfile');
-    if (selectedProfile) {
-      const profile = JSON.parse(selectedProfile);
-      console.log('Selected profile:', profile.name);
-    }
-  </script>
+  <script src="js/tmdb.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

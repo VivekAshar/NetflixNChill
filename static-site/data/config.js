@@ -5,7 +5,7 @@ const CONFIG = {
   // Get it free in 2 minutes at: https://www.themoviedb.org/settings/api
   // Instructions: See README.md "Getting Your FREE TMDB API Key" section
   // ============================================================
-  TMDB_API_KEY: "paste-your-key-here",
+  TMDB_API_KEY: "e7f16058c1bcd52af4e0f3f03f5e7bc8",
 
   // ============================================================
   // LOGIN CREDENTIALS — change these to whatever you want
