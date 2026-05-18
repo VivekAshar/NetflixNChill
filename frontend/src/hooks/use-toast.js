@@ -157,7 +157,7 @@ function useToast() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     // Note: setState is stable across renders, listeners and index are cleanup-only
-  }, [state])
+  }, [])
 
   return {
     ...state,
