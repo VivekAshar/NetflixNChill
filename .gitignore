@@ -82,3 +82,9 @@ memory/test_credentials.md
 android-sdk/static-site/assets/video/HappyBirthdayN.mp4
 netflix-birthday-website-final.zip
 static-site/assets/video/HappyBirthdayN.mp4
+.env
+.env.*
+*.env
+credentials.json
+*.key
+.credentials

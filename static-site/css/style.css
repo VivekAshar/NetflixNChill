@@ -739,9 +739,10 @@ input, textarea, select {
 }
 
 .profile-avatar {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
+  flex-shrink: 0;
   border-radius: var(--radius-md);
   border: 3px solid transparent;
   transition: border-color var(--transition-fast);
@@ -1541,6 +1542,16 @@ body.fade-in {
   z-index: -1;
 }
 
+.background-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0.5;
+  z-index: -1;
+}
+
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -1561,6 +1572,30 @@ body.fade-in {
   letter-spacing: -1px;
   transform: perspective(100px) rotateY(-2deg);
   display: inline-block;
+}
+
+/********** Header  **********/
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding-top: 15px;
+}
+
+header .logo > img {
+	width: 120px;
+}
+
+header .profile > img {
+	width: 48px;
 }
 
 .login-container {

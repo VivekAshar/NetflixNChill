@@ -26,10 +26,10 @@ const CONFIG = {
   // Add your profile photos as profile1.jpg, profile2.jpg, etc.
   // ============================================================
   profiles: [
-    { name: "Sleepy Bubu",  image: "assets/profiles/profile1.jpg" },
-    { name: "Angy Bubu", image: "assets/profiles/profile2.jpg" },
-    { name: "Hungry Bubu", image: "assets/profiles/profile3.jpg" },
-    { name: "Goofy Bubu",  image: "assets/profiles/profile4.jpg" }
+    { name: "Sleepy Bubu",  image: "assets/profiles/sleepy.jpg" },
+    { name: "Angy Bubu", image: "assets/profiles/angry.jpg" },
+    { name: "Hungry Bubu", image: "assets/profiles/goofy.jpg" },
+    { name: "Goofy Bubu",  image: "assets/profiles/hungry.jpg" }
   ],
 
   // ============================================================
@@ -37,9 +37,9 @@ const CONFIG = {
   // This is the big banner at the top of the main page
   // ============================================================
   hero: {
-    image:   "assets/hero/hero.jpg",
-    heading: "Happy Birthday, Neha!",
-    subtext: "A world of SRK. A universe of love. All for you. I love you <3333"
+    image:   "assets/hero/Hero.png",
+    heading: "Happy Birthday, Neha",
+    subtext: "A world of SRK. A universe of love. All for you. I love you! <3333"
   },
 
   // ============================================================
@@ -49,14 +49,14 @@ const CONFIG = {
   rows: [
     "SRK Classics",
     "Pyaar Dosti Hai Cinematic Universe",
-    "Wankhede Files - "Yahi zinda gaad dunga mad****od",
+    "Wankhede Files - 'Yahi zinda gaad dunga mad****od'",
     "Movies That Made Indian Men Open Their Arms In Public",
     "Salmaan is my besstttt fraaaaaand",
     "Because You Watched DDLJ",
     "SRK Running After Trains Cardio Collection",
     "Rahul, Naam Toh Suna Hoga Collection",
     "SRK Award Winners",
-    "More Like Pathaan",
+    "Apki Halwaii ki dukaan toh mein...",
     "Because you are dating Vivek, Senorita"
   ],
 
@@ -170,18 +170,18 @@ const CONFIG = {
   // Add 12 photos: photo1.jpg, photo2.jpg, ... photo12.jpg
   // ============================================================
   birthdayGirlTiles: [
-    { image: "assets/birthday-girl/photo1.jpg",  title: "Chapter 1",  subtitle: "Where it all began" },
-    { image: "assets/birthday-girl/photo2.jpg",  title: "Chapter 2",  subtitle: "The glow-up era" },
-    { image: "assets/birthday-girl/photo3.jpg",  title: "Chapter 3",  subtitle: "Iconic moments" },
-    { image: "assets/birthday-girl/photo4.jpg",  title: "Chapter 4",  subtitle: "Pure chaos" },
-    { image: "assets/birthday-girl/photo5.jpg",  title: "Chapter 5",  subtitle: "Main character energy" },
-    { image: "assets/birthday-girl/photo6.jpg",  title: "Chapter 6",  subtitle: "The squad" },
-    { image: "assets/birthday-girl/photo7.jpg",  title: "Chapter 7",  subtitle: "Unmatched vibes" },
-    { image: "assets/birthday-girl/photo8.jpg",  title: "Chapter 8",  subtitle: "That one trip" },
-    { image: "assets/birthday-girl/photo9.jpg",  title: "Chapter 9",  subtitle: "Celebrations" },
-    { image: "assets/birthday-girl/photo10.jpg", title: "Chapter 10", subtitle: "Legends only" },
-    { image: "assets/birthday-girl/photo11.jpg", title: "Chapter 11", subtitle: "Still going strong" },
-    { image: "assets/birthday-girl/photo12.jpg", title: "Chapter 12", subtitle: "To be continued..." }
+    { image: "assets/birthday-girl/1.jpg",  title: "Chapter 1",  subtitle: "Pilot - The one with MS WORD" },
+    { image: "assets/birthday-girl/2.jpg",  title: "Chapter 2",  subtitle: "The one where he teaches her dandiya" },
+    { image: "assets/birthday-girl/3.jpg",  title: "Chapter 3",  subtitle: "The one where she drugs him" },
+    { image: "assets/birthday-girl/4.jpg",  title: "Chapter 4",  subtitle: "The one where they discover (veg) sushi" },
+    { image: "assets/birthday-girl/5.jpg",  title: "Chapter 5",  subtitle: "The one where they say goodbye... for a bit" },
+    { image: "assets/birthday-girl/6.jpg",  title: "Chapter 6",  subtitle: "The one where they meet a celebrity" },
+    { image: "assets/birthday-girl/7.jpg",  title: "Chapter 7",  subtitle: "The one where they become a celebrity" },
+    { image: "assets/birthday-girl/8.jpg",  title: "Chapter 8",  subtitle: "The one where they visit le musée du Louvre" },
+    { image: "assets/birthday-girl/9.jpg",  title: "Chapter 9",  subtitle: "The one where they join Kami's maketing team" },
+    { image: "assets/birthday-girl/10.jpg", title: "Chapter 10", subtitle: "The one where they watch Chelsea FC play" },
+    { image: "assets/birthday-girl/11.jpg", title: "Chapter 11", subtitle: "The one with Hyderabadi Irani chai" },
+    { image: "assets/birthday-girl/12.jpg", title: "Chapter 12", subtitle: "The one where they go to Goa.. without a licence" }
   ],
 
   // ============================================================
@@ -249,9 +249,9 @@ const CONFIG = {
   // ============================================================
   video: {
     path:        "assets/video/HappyBirthdayN.mp4",
-    posterImage: "assets/hero/video-poster.jpg",
-    tileTitle:   "A Special Birthday Feature",
-    tileSubtext: "A message just for you"
+    posterImage: "assets/hero/thumbnail.jpg",
+    tileTitle:   "Go Goa Gone",
+    tileSubtext: "Here is something for you, it ain't much but it's honest work"
   }
 
 };
