@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render all content rows
     renderAllRows();
     
+    // Initialize polish features
+    initPolishFeatures();
+    
     // Hide loading indicator
     hideLoading();
     isLoading = false;
@@ -227,6 +230,21 @@ function createFilmTile(film, showProgress = false) {
   meta.textContent = metaItems.join(' • ');
   overlay.appendChild(meta);
   
+  // Genre pills (Netflix style)
+  if (film.genres && film.genres.length > 0) {
+    const genresContainer = document.createElement('div');
+    genresContainer.className = 'tile-genres';
+    
+    film.genres.slice(0, 3).forEach(genre => {
+      const pill = document.createElement('span');
+      pill.className = 'genre-pill';
+      pill.textContent = genre;
+      genresContainer.appendChild(pill);
+    });
+    
+    overlay.appendChild(genresContainer);
+  }
+  
   tile.appendChild(overlay);
   
   return tile;
@@ -402,11 +420,121 @@ function createVideoTile() {
 }
 
 // ============================================================
-// VIDEO MODAL STUB (TO BE COMPLETED IN PART 5)
+// POLISH FEATURES (PART 5)
+// ============================================================
+function initPolishFeatures() {
+  // 1. Smooth page fade-in
+  document.body.classList.add('fade-in');
+  
+  // 2. Animate progress bars on load
+  animateProgressBars();
+  
+  // 3. Ambient row scroll animations
+  initScrollAnimations();
+  
+  console.log('✨ Polish features initialized');
+}
+
+// Animate "Continue Watching" progress bars
+function animateProgressBars() {
+  const progressBars = document.querySelectorAll('.tile-progress-fill');
+  progressBars.forEach((bar, index) => {
+    const targetWidth = bar.style.width;
+    bar.style.width = '0%';
+    
+    setTimeout(() => {
+      bar.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
+      bar.style.width = targetWidth;
+    }, 500 + (index * 100));
+  });
+}
+
+// Ambient scroll animations using IntersectionObserver
+function initScrollAnimations() {
+  const rowContainers = document.querySelectorAll('.row-container');
+  
+  const observerOptions = {
+    root: null,
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target); // Only animate once
+      }
+    });
+  }, observerOptions);
+  
+  rowContainers.forEach(container => {
+    container.classList.add('scroll-animate');
+    observer.observe(container);
+  });
+}
+
+// ============================================================
+// VIDEO MODAL (PART 5 - COMPLETE IMPLEMENTATION)
 // ============================================================
 function openVideoModal() {
-  alert('🎬 Video modal will be implemented in Part 5!\\n\\nThis special birthday video will play in a cinematic modal overlay.');
-  console.log('Video modal stub called. Part 5 will implement the full video player.');
+  const modal = document.getElementById('video-modal');
+  const video = document.getElementById('birthday-video');
+  const closeBtn = document.getElementById('modal-close-btn');
+  
+  if (!modal || !video) {
+    console.error('Video modal elements not found');
+    return;
+  }
+  
+  // Set video source from config
+  if (CONFIG.video && CONFIG.video.path) {
+    video.querySelector('source').src = CONFIG.video.path;
+    video.poster = CONFIG.video.posterImage || '';
+    video.load();
+  }
+  
+  // Show modal with fade-in
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent body scroll
+  
+  // Autoplay video
+  setTimeout(() => {
+    video.play().catch(err => {
+      console.log('Autoplay prevented:', err);
+      // Autoplay blocked - user will need to click play
+    });
+  }, 300);
+  
+  // Close button handler
+  const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scroll
+    
+    // Pause and reset video
+    video.pause();
+    video.currentTime = 0;
+  };
+  
+  closeBtn.onclick = closeModal;
+  
+  // Close on backdrop click
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  };
+  
+  // Close on Escape key
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', handleEscape);
+    }
+  };
+  document.addEventListener('keydown', handleEscape);
+  
+  console.log('🎬 Video modal opened');
 }
 
 // ============================================================

@@ -12,8 +12,8 @@ const CONFIG = {
   // The login page will check against these values
   // ============================================================
   credentials: {
-    username: "your-username",
-    password: "your-password"
+    username: "xxx",
+    password: "xxx"
   },
 
   // ============================================================
