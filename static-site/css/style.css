@@ -214,7 +214,6 @@ input, textarea, select {
   letter-spacing: -1px;
   transform: perspective(100px) rotateY(-2deg);
   display: inline-block;
-  font-style: italic;
 }
 
 .navbar-menu {
@@ -1562,7 +1561,6 @@ body.fade-in {
   letter-spacing: -1px;
   transform: perspective(100px) rotateY(-2deg);
   display: inline-block;
-  font-style: italic;
 }
 
 .login-container {

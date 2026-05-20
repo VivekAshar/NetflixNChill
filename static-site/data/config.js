@@ -19,17 +19,17 @@ const CONFIG = {
   // ============================================================
   // Name of the birthday person — used across all pages
   // ============================================================
-  birthdayPersonName: "Priya",
+  birthdayPersonName: "Neha",
 
   // ============================================================
   // PROFILE CARDS — replace images in /assets/profiles/
   // Add your profile photos as profile1.jpg, profile2.jpg, etc.
   // ============================================================
   profiles: [
-    { name: "Priya",  image: "assets/profiles/profile1.jpg" },
-    { name: "Friend", image: "assets/profiles/profile2.jpg" },
-    { name: "Family", image: "assets/profiles/profile3.jpg" },
-    { name: "Guest",  image: "assets/profiles/profile4.jpg" }
+    { name: "Sleepy Bubu",  image: "assets/profiles/profile1.jpg" },
+    { name: "Angy Bubu", image: "assets/profiles/profile2.jpg" },
+    { name: "Hungry Bubu", image: "assets/profiles/profile3.jpg" },
+    { name: "Goofy Bubu",  image: "assets/profiles/profile4.jpg" }
   ],
 
   // ============================================================
@@ -38,8 +38,8 @@ const CONFIG = {
   // ============================================================
   hero: {
     image:   "assets/hero/hero.jpg",
-    heading: "Happy Birthday, Priya",
-    subtext: "A world of SRK. A universe of love. All for you."
+    heading: "Happy Birthday, Neha!",
+    subtext: "A world of SRK. A universe of love. All for you. I love you <3333"
   },
 
   // ============================================================
@@ -48,15 +48,16 @@ const CONFIG = {
   // ============================================================
   rows: [
     "SRK Classics",
-    "SRK Romance Universe",
-    "SRK Bollywood Comfort Cinema",
-    "Continue Watching",
-    "Recommended For You",
+    "Pyaar Dosti Hai Cinematic Universe",
+    "Wankhede Files - "Yahi zinda gaad dunga mad****od",
+    "Movies That Made Indian Men Open Their Arms In Public",
+    "Salmaan is my besstttt fraaaaaand",
     "Because You Watched DDLJ",
-    "SRK Birthday Specials",
-    "Top 10 SRK Films",
+    "SRK Running After Trains Cardio Collection",
+    "Rahul, Naam Toh Suna Hoga Collection",
     "SRK Award Winners",
-    "More Like Pathaan"
+    "More Like Pathaan",
+    "Because you are dating Vivek, Senorita"
   ],
 
   // ============================================================
@@ -106,6 +107,48 @@ const CONFIG = {
     15419,  // Kabhi Haan Kabhi Naa (1994)
     41902,  // Baadshah (1999)
     41517,  // Ra.One (2011)
+    25519,  // Pardes (1997)
+
+    19404,  // Dilwale Dulhania Le Jayenge (1995)
+    10757,  // Kabhi Khushi Kabhie Gham (2001)
+    4254,   // Kal Ho Naa Ho (2003)
+    13986,  // Dil To Pagal Hai (1997)
+    15917,  // Devdas (2002)
+    14163,  // Chak De! India (2007)
+    26022,  // My Name Is Khan (2010)
+    15774,  // Swades (2004)
+    864692, // Pathaan (2023)
+    132316, // Jab Tak Hai Jaan (2012)
+    4251,   // Veer-Zaara (2004)
+    363343, // Raees (2017)
+    8079,   // Om Shanti Om (2007)
+    205022, // Chennai Express (2013)
+    370665, // Dilwale (2015)
+    11854,  // Kuch Kuch Hota Hai (1998)
+    11518,  // Mohabbatein (2000)
+    17501,  // Don (2006)
+    41109,  // Don 2 (2011)
+    21210,  // Dil Se.. (1998)
+    19657,  // Baazigar (1993)
+    35053,  // Darr (1993)
+    14395,  // Kabhi Alvida Naa Kehna (2006)
+    377985, // Fan (2016)
+    496076, // Zero (2018)
+    872906, // Jawan (2023)
+    93519,  // Karan Arjun (1995)
+    159090, // Duplicate (1998)
+    4435,   // Asoka (2001)
+    14072,  // Rab Ne Bana Di Jodi (2008)
+    277432, // Happy New Year (2014)
+    4252,   // Chalte Chalte (2003)
+    14134,  // Main Hoon Na (2004)
+    960876, // Dunki (2023)
+    131940, // Josh (2000)
+    114436, // Anjaam (1994)
+    15419,  // Kabhi Haan Kabhi Naa (1994)
+    41902,  // Baadshah (1999)
+    41517,  // Ra.One (2011)
+    25519,  // Pardes (1997)
     // ---- To add more: go to themoviedb.org, search the film, copy the ID from the URL ----
   ],
 

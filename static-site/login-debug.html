@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Debug - Netflix Birthday</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .debug-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid #E50914;
+      border-radius: 8px;
+      padding: 30px;
+      max-width: 600px;
+      color: white;
+      font-family: 'Courier New', monospace;
+      z-index: 10000;
+    }
+    .debug-title {
+      color: #E50914;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .debug-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+    .debug-label {
+      color: #46d369;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .debug-value {
+      color: #fff;
+      margin-left: 20px;
+      word-break: break-all;
+    }
+    .debug-test {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(229, 9, 20, 0.1);
+      border: 1px solid #E50914;
+      border-radius: 4px;
+    }
+    .success {
+      color: #46d369;
+    }
+    .error {
+      color: #E50914;
+    }
+    .btn-test {
+      background: #E50914;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 5px;
+    }
+    .btn-test:hover {
+      background: #F40612;
+    }
+    .test-form {
+      margin-top: 20px;
+    }
+    .test-input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      color: white;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="debug-panel">
+    <div class="debug-title">🔍 Login Debug Panel</div>
+    
+    <div class="debug-section">
+      <div class="debug-label">📋 Current Credentials in config.js:</div>
+      <div class="debug-value">
+        Username: <span id="config-username" class="success">Loading...</span><br>
+        Password: <span id="config-password" class="success">Loading...</span>
+      </div>
+    </div>
+
+    <div class="debug-section">
+      <div class="debug-label">✅ Configuration Status:</div>
+      <div class="debug-value">
+        CONFIG object loaded: <span id="config-loaded" class="error">Checking...</span><br>
+        CONFIG.credentials exists: <span id="credentials-exist" class="error">Checking...</span><br>
+        login.js loaded: <span id="loginjs-loaded" class="error">Checking...</span>
+      </div>
+    </div>
+
+    <div class="debug-test">
+      <div class="debug-label">🧪 Test Login:</div>
+      <form class="test-form" id="test-form">
+        <input type="text" class="test-input" id="test-username" placeholder="Enter username" required>
+        <input type="password" class="test-input" id="test-password" placeholder="Enter password" required>
+        <button type="submit" class="btn-test">Test Login</button>
+      </form>
+      <div id="test-result" style="margin-top: 10px;"></div>
+    </div>
+
+    <div class="debug-section">
+      <button class="btn-test" onclick="location.href='login.html'">← Back to Login Page</button>
+      <button class="btn-test" onclick="fixCredentials()">🔧 Reset to Default</button>
+    </div>
+  </div>
+
+  <script src="data/config.js"></script>
+  <script>
+    // Check CONFIG loading
+    document.getElementById('config-loaded').textContent = typeof CONFIG !== 'undefined' ? '✅ Yes' : '❌ No';
+    document.getElementById('config-loaded').className = typeof CONFIG !== 'undefined' ? 'success' : 'error';
+    
+    if (typeof CONFIG !== 'undefined') {
+      document.getElementById('credentials-exist').textContent = CONFIG.credentials ? '✅ Yes' : '❌ No';
+      document.getElementById('credentials-exist').className = CONFIG.credentials ? 'success' : 'error';
+      
+      if (CONFIG.credentials) {
+        document.getElementById('config-username').textContent = CONFIG.credentials.username;
+        document.getElementById('config-password').textContent = CONFIG.credentials.password;
+      }
+    }
+    
+    document.getElementById('loginjs-loaded').textContent = '✅ Not needed for debug';
+    document.getElementById('loginjs-loaded').className = 'success';
+
+    // Test login
+    document.getElementById('test-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('test-username').value.trim();
+      const password = document.getElementById('test-password').value;
+      const result = document.getElementById('test-result');
+      
+      const correctUsername = CONFIG.credentials.username;
+      const correctPassword = CONFIG.credentials.password;
+      
+      if (username === correctUsername && password === correctPassword) {
+        result.innerHTML = '<span class="success">✅ SUCCESS! Credentials match. Login should work.</span>';
+      } else {
+        result.innerHTML = `<span class="error">❌ FAILED!</span><br>
+          Entered: "${username}" / "${password}"<br>
+          Expected: "${correctUsername}" / "${correctPassword}"`;
+      }
+    });
+
+    function fixCredentials() {
+      alert('To fix credentials:\n\n1. Open /app/static-site/data/config.js\n2. Find lines 14-17\n3. Change:\n   username: "your-username"\n   password: "your-password"\n\nCurrent values:\nusername: "' + CONFIG.credentials.username + '"\npassword: "' + CONFIG.credentials.password + '"');
+    }
+
+    // Auto-fill test inputs with current config values
+    document.getElementById('test-username').value = CONFIG.credentials.username;
+    document.getElementById('test-password').value = CONFIG.credentials.password;
+  </script>
+</body>
+</html>
