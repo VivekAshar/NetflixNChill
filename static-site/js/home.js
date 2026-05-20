@@ -624,8 +624,18 @@ function initScrollAnimations() {
 }
 
 // ============================================================
-// VIDEO MODAL (PART 5 - COMPLETE IMPLEMENTATION)
+// VIDEO MODAL WITH NETFLIX-STYLE CUSTOM PLAYER
 // ============================================================
+
+// Track if video source has been set (to prevent reloading)
+let videoSourceInitialized = false;
+let controlsHideTimeout = null;
+let videoPlayerState = {
+  isPlaying: false,
+  isMuted: false,
+  volume: 1
+};
+
 function openVideoModal() {
   const modal = document.getElementById('video-modal');
   const video = document.getElementById('birthday-video');
@@ -636,18 +646,25 @@ function openVideoModal() {
     return;
   }
   
-  // Set video source from config
-  if (CONFIG.video && CONFIG.video.path) {
-    video.querySelector('source').src = CONFIG.video.path;
+  // CRITICAL BUG FIX: Only set video source ONCE on first modal open
+  // Never call video.load() again after initial setup
+  if (!videoSourceInitialized && CONFIG.video && CONFIG.video.path) {
+    const source = video.querySelector('source');
+    source.src = CONFIG.video.path;
     video.poster = CONFIG.video.posterImage || '';
     video.load();
+    videoSourceInitialized = true;
+    console.log('🎬 Video source initialized (one-time only)');
   }
+  
+  // Initialize custom Netflix-style player controls
+  initCustomVideoPlayer(video, modal);
   
   // Show modal with fade-in
   modal.classList.add('active');
   document.body.style.overflow = 'hidden'; // Prevent body scroll
   
-  // Autoplay video
+  // Autoplay video after short delay
   setTimeout(() => {
     video.play().catch(err => {
       console.log('Autoplay prevented:', err);
@@ -660,9 +677,13 @@ function openVideoModal() {
     modal.classList.remove('active');
     document.body.style.overflow = ''; // Restore scroll
     
-    // Pause and reset video
+    // Clean up custom player event listeners
+    cleanupVideoPlayer(video);
+    
+    // ONLY reset video when explicitly closing modal
     video.pause();
     video.currentTime = 0;
+    videoPlayerState.isPlaying = false;
   };
   
   closeBtn.onclick = closeModal;
@@ -684,6 +705,345 @@ function openVideoModal() {
   document.addEventListener('keydown', handleEscape);
   
   console.log('🎬 Video modal opened');
+}
+
+// ============================================================
+// CUSTOM NETFLIX-STYLE VIDEO PLAYER
+// ============================================================
+
+function initCustomVideoPlayer(video, modal) {
+  // Remove any existing custom controls
+  const existingControls = modal.querySelector('.netflix-video-controls');
+  if (existingControls) {
+    existingControls.remove();
+  }
+  
+  // Create custom controls container
+  const controlsContainer = document.createElement('div');
+  controlsContainer.className = 'netflix-video-controls';
+  controlsContainer.innerHTML = `
+    <!-- Progress Bar -->
+    <div class="netflix-progress-container">
+      <div class="netflix-progress-bar">
+        <div class="netflix-progress-filled"></div>
+        <div class="netflix-progress-handle"></div>
+      </div>
+    </div>
+    
+    <!-- Control Bar -->
+    <div class="netflix-control-bar">
+      <div class="netflix-controls-left">
+        <button class="netflix-btn netflix-play-pause" aria-label="Play/Pause">
+          <svg class="play-icon" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="pause-icon hidden" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+          </svg>
+        </button>
+        
+        <button class="netflix-btn netflix-skip-forward" aria-label="Skip forward 10s">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
+          </svg>
+          <span class="skip-label">+10</span>
+        </button>
+        
+        <div class="netflix-volume-control">
+          <button class="netflix-btn netflix-volume-btn" aria-label="Mute/Unmute">
+            <svg class="volume-high-icon" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="white" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <svg class="volume-muted-icon hidden" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="white" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          </button>
+          <input type="range" class="netflix-volume-slider" min="0" max="100" value="100" aria-label="Volume">
+        </div>
+        
+        <div class="netflix-time-display">
+          <span class="current-time">0:00</span>
+          <span class="time-separator">/</span>
+          <span class="total-time">0:00</span>
+        </div>
+      </div>
+      
+      <div class="netflix-controls-right">
+        <button class="netflix-btn netflix-fullscreen" aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  // Insert controls into modal
+  const videoContainer = modal.querySelector('.modal-video-container');
+  videoContainer.appendChild(controlsContainer);
+  
+  // Get control elements
+  const playPauseBtn = controlsContainer.querySelector('.netflix-play-pause');
+  const playIcon = controlsContainer.querySelector('.play-icon');
+  const pauseIcon = controlsContainer.querySelector('.pause-icon');
+  const skipForwardBtn = controlsContainer.querySelector('.netflix-skip-forward');
+  const volumeBtn = controlsContainer.querySelector('.netflix-volume-btn');
+  const volumeHighIcon = controlsContainer.querySelector('.volume-high-icon');
+  const volumeMutedIcon = controlsContainer.querySelector('.volume-muted-icon');
+  const volumeSlider = controlsContainer.querySelector('.netflix-volume-slider');
+  const fullscreenBtn = controlsContainer.querySelector('.netflix-fullscreen');
+  const progressBar = controlsContainer.querySelector('.netflix-progress-bar');
+  const progressFilled = controlsContainer.querySelector('.netflix-progress-filled');
+  const progressHandle = controlsContainer.querySelector('.netflix-progress-handle');
+  const currentTimeDisplay = controlsContainer.querySelector('.current-time');
+  const totalTimeDisplay = controlsContainer.querySelector('.total-time');
+  const controlBar = controlsContainer.querySelector('.netflix-control-bar');
+  
+  // Format time helper
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+  
+  // Update play/pause button
+  const updatePlayPauseButton = () => {
+    if (video.paused) {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      videoPlayerState.isPlaying = false;
+      // Keep controls visible when paused
+      controlsContainer.classList.add('visible');
+    } else {
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      videoPlayerState.isPlaying = true;
+      // Start hide timer when playing
+      scheduleControlsHide();
+    }
+  };
+  
+  // Update progress bar
+  const updateProgress = () => {
+    const percent = (video.currentTime / video.duration) * 100;
+    progressFilled.style.width = `${percent}%`;
+    progressHandle.style.left = `${percent}%`;
+    currentTimeDisplay.textContent = formatTime(video.currentTime);
+  };
+  
+  // Update volume display
+  const updateVolumeDisplay = () => {
+    if (video.muted || video.volume === 0) {
+      volumeHighIcon.classList.add('hidden');
+      volumeMutedIcon.classList.remove('hidden');
+    } else {
+      volumeHighIcon.classList.remove('hidden');
+      volumeMutedIcon.classList.add('hidden');
+    }
+  };
+  
+  // Show/hide controls
+  const showControls = () => {
+    controlsContainer.classList.add('visible');
+    clearTimeout(controlsHideTimeout);
+  };
+  
+  const hideControls = () => {
+    if (!video.paused) {
+      controlsContainer.classList.remove('visible');
+    }
+  };
+  
+  const scheduleControlsHide = () => {
+    clearTimeout(controlsHideTimeout);
+    if (!video.paused) {
+      controlsHideTimeout = setTimeout(hideControls, 3000);
+    }
+  };
+  
+  // ============================================================
+  // EVENT LISTENERS
+  // ============================================================
+  
+  // Play/Pause button
+  playPauseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  });
+  
+  // Click on video to toggle play/pause
+  video.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  });
+  
+  // Skip forward 10 seconds
+  skipForwardBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.currentTime = Math.min(video.currentTime + 10, video.duration);
+  });
+  
+  // Volume button (mute/unmute)
+  volumeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.muted = !video.muted;
+    videoPlayerState.isMuted = video.muted;
+    updateVolumeDisplay();
+  });
+  
+  // Volume slider
+  volumeSlider.addEventListener('input', (e) => {
+    e.stopPropagation();
+    const value = e.target.value / 100;
+    video.volume = value;
+    video.muted = false;
+    videoPlayerState.volume = value;
+    updateVolumeDisplay();
+  });
+  
+  // Fullscreen button
+  fullscreenBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!document.fullscreenElement) {
+      videoContainer.requestFullscreen().catch(err => {
+        console.log('Fullscreen error:', err);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  });
+  
+  // Progress bar seek
+  progressBar.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const rect = progressBar.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    video.currentTime = percent * video.duration;
+  });
+  
+  // Video event listeners
+  video.addEventListener('play', updatePlayPauseButton);
+  video.addEventListener('pause', updatePlayPauseButton);
+  video.addEventListener('timeupdate', updateProgress);
+  
+  // CRITICAL: Video ended - stop on last frame, do NOT loop or restart
+  video.addEventListener('ended', () => {
+    video.pause();
+    videoPlayerState.isPlaying = false;
+    updatePlayPauseButton();
+    showControls();
+    console.log('🎬 Video playback completed');
+  });
+  
+  // Set total duration when metadata loads
+  video.addEventListener('loadedmetadata', () => {
+    totalTimeDisplay.textContent = formatTime(video.duration);
+    updateProgress();
+  });
+  
+  // Mouse movement on video container
+  videoContainer.addEventListener('mousemove', () => {
+    showControls();
+    scheduleControlsHide();
+  });
+  
+  videoContainer.addEventListener('mouseleave', () => {
+    scheduleControlsHide();
+  });
+  
+  // ============================================================
+  // KEYBOARD SHORTCUTS
+  // ============================================================
+  
+  const handleVideoKeyboard = (e) => {
+    // Don't interfere with modal close (Escape is handled by openVideoModal)
+    if (e.key === 'Escape') return;
+    
+    switch(e.key) {
+      case ' ':
+        e.preventDefault();
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+        break;
+      
+      case 'ArrowRight':
+        e.preventDefault();
+        video.currentTime = Math.min(video.currentTime + 10, video.duration);
+        showControls();
+        scheduleControlsHide();
+        break;
+      
+      case 'ArrowLeft':
+        e.preventDefault();
+        video.currentTime = Math.max(video.currentTime - 10, 0);
+        showControls();
+        scheduleControlsHide();
+        break;
+      
+      case 'm':
+      case 'M':
+        e.preventDefault();
+        video.muted = !video.muted;
+        videoPlayerState.isMuted = video.muted;
+        updateVolumeDisplay();
+        showControls();
+        scheduleControlsHide();
+        break;
+      
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        if (!document.fullscreenElement) {
+          videoContainer.requestFullscreen().catch(err => {
+            console.log('Fullscreen error:', err);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+        break;
+    }
+  };
+  
+  document.addEventListener('keydown', handleVideoKeyboard);
+  
+  // Store reference for cleanup
+  video._keyboardHandler = handleVideoKeyboard;
+  
+  // Initial setup
+  updatePlayPauseButton();
+  updateVolumeDisplay();
+  showControls();
+  
+  console.log('🎬 Netflix-style video player initialized');
+}
+
+// ============================================================
+// CLEANUP VIDEO PLAYER
+// ============================================================
+function cleanupVideoPlayer(video) {
+  // Remove keyboard handler
+  if (video._keyboardHandler) {
+    document.removeEventListener('keydown', video._keyboardHandler);
+    video._keyboardHandler = null;
+  }
+  
+  // Clear any pending timeouts
+  if (controlsHideTimeout) {
+    clearTimeout(controlsHideTimeout);
+    controlsHideTimeout = null;
+  }
+  
+  console.log('🎬 Video player cleaned up');
 }
 
 // ============================================================

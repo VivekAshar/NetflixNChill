@@ -28,8 +28,8 @@ const CONFIG = {
   profiles: [
     { name: "Sleepy Bubu",  image: "assets/profiles/sleepy.jpg" },
     { name: "Angy Bubu", image: "assets/profiles/angry.jpg" },
-    { name: "Hungry Bubu", image: "assets/profiles/goofy.jpg" },
-    { name: "Goofy Bubu",  image: "assets/profiles/hungry.jpg" }
+    { name: "Hungry Bubu", image: "assets/profiles/hungry.jpg" },
+    { name: "Goofy Bubu",  image: "assets/profiles/goofy.jpg" }
   ],
 
   // ============================================================
