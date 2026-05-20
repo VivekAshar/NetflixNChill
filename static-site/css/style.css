@@ -377,11 +377,13 @@ input, textarea, select {
 }
 
 /* ============================================================
-   CONTENT ROWS (Movie Carousels)
+   CONTENT ROWS (Movie Carousels) - Paginated Scroll
    ============================================================ */
 .row-container {
   padding: 0 var(--space-xl);
   margin-bottom: var(--space-2xl);
+  position: relative;
+  overflow: visible; /* Allow scaled tiles to overflow naturally */
 }
 
 .row-title {
@@ -393,21 +395,108 @@ input, textarea, select {
 
 .row-content {
   position: relative;
+  overflow: hidden; /* Hide scrollbar */
+  padding: var(--space-md) 0; /* Add padding to prevent clipping of scaled tiles */
 }
 
 .row-tiles {
   display: flex;
   gap: var(--space-sm);
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-  padding: var(--space-md) 0;
+  transition: transform 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+  will-change: transform;
 }
 
-.row-tiles::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+/* Responsive tile width - dynamically sized based on breakpoint */
+/* Default: 6 tiles on large screens (1400px+) */
+.row-tiles .tile {
+  flex: 0 0 calc((100% - (5 * var(--space-sm))) / 6);
+  width: calc((100% - (5 * var(--space-sm))) / 6);
+  max-width: calc((100% - (5 * var(--space-sm))) / 6);
+}
+
+/* Medium-large: 5 tiles (1100px - 1399px) */
+@media (max-width: 1399px) {
+  .row-tiles .tile {
+    flex: 0 0 calc((100% - (4 * var(--space-sm))) / 5);
+    width: calc((100% - (4 * var(--space-sm))) / 5);
+    max-width: calc((100% - (4 * var(--space-sm))) / 5);
+  }
+}
+
+/* Medium: 4 tiles (800px - 1099px) */
+@media (max-width: 1099px) {
+  .row-tiles .tile {
+    flex: 0 0 calc((100% - (3 * var(--space-sm))) / 4);
+    width: calc((100% - (3 * var(--space-sm))) / 4);
+    max-width: calc((100% - (3 * var(--space-sm))) / 4);
+  }
+}
+
+/* Small: 3 tiles (500px - 799px) */
+@media (max-width: 799px) {
+  .row-tiles .tile {
+    flex: 0 0 calc((100% - (2 * var(--space-sm))) / 3);
+    width: calc((100% - (2 * var(--space-sm))) / 3);
+    max-width: calc((100% - (2 * var(--space-sm))) / 3);
+  }
+}
+
+/* Mobile: 2 tiles (below 500px) */
+@media (max-width: 499px) {
+  .row-tiles .tile {
+    flex: 0 0 calc((100% - var(--space-sm)) / 2);
+    width: calc((100% - var(--space-sm)) / 2);
+    max-width: calc((100% - var(--space-sm)) / 2);
+  }
+}
+
+/* Scroll Chevron Buttons */
+.row-scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.7);
+  border: none;
+  color: var(--netflix-white);
+  font-size: 32px;
+  cursor: pointer;
+  z-index: var(--z-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base), background var(--transition-fast);
+  backdrop-filter: blur(5px);
+}
+
+.row-scroll-btn:hover {
+  background: rgba(20, 20, 20, 0.9);
+}
+
+.row-scroll-btn.hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.row-scroll-btn-left {
+  left: 0;
+}
+
+.row-scroll-btn-right {
+  right: 0;
+}
+
+.row-container:hover .row-scroll-btn:not(.hidden) {
+  opacity: 1;
+}
+
+/* Chevron icons */
+.row-scroll-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
 
 /* ============================================================

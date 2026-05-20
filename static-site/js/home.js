@@ -134,12 +134,13 @@ function createRow(title, rowIndex, friendTile) {
   rowTitleElem.textContent = title;
   rowContainer.appendChild(rowTitleElem);
   
-  // Row content (scrollable tiles)
+  // Row content (with pagination)
   const rowContent = document.createElement('div');
   rowContent.className = 'row-content';
   
   const rowTiles = document.createElement('div');
   rowTiles.className = 'row-tiles';
+  rowTiles.setAttribute('data-current-page', '0');
   
   // Get films for this row (distribute films across rows)
   const filmsPerRow = Math.ceil(allFilms.length / CONFIG.rows.length);
@@ -151,7 +152,6 @@ function createRow(title, rowIndex, friendTile) {
   const isContinueWatching = title.toLowerCase().includes('continue watching');
   
   // Randomize friend tile position per row
-  // Pattern: [0, 1, 2, 4, 0, 3, 1, 4, 2, 3] for rows 0-9
   const friendTilePositions = [0, 1, 2, 4, 0, 3, 1, 4, 2, 3];
   const friendTilePosition = friendTilePositions[rowIndex % friendTilePositions.length];
   
@@ -179,10 +179,111 @@ function createRow(title, rowIndex, friendTile) {
     rowTiles.appendChild(videoTile);
   }
   
+  // Add scroll buttons
+  const leftBtn = createScrollButton('left', rowTiles);
+  const rightBtn = createScrollButton('right', rowTiles);
+  
+  rowContent.appendChild(leftBtn);
   rowContent.appendChild(rowTiles);
+  rowContent.appendChild(rightBtn);
   rowContainer.appendChild(rowContent);
   
+  // Initialize button visibility
+  updateScrollButtons(rowTiles, leftBtn, rightBtn);
+  
   return rowContainer;
+}
+
+// ============================================================
+// CREATE SCROLL BUTTONS
+// ============================================================
+function createScrollButton(direction, rowTiles) {
+  const button = document.createElement('button');
+  button.className = `row-scroll-btn row-scroll-btn-${direction}`;
+  button.setAttribute('aria-label', `Scroll ${direction}`);
+  
+  // Chevron SVG icon
+  const chevron = direction === 'left' 
+    ? '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>';
+  
+  button.innerHTML = chevron;
+  
+  // Add click handler
+  button.addEventListener('click', () => {
+    scrollRowPage(rowTiles, direction, button.parentElement);
+  });
+  
+  return button;
+}
+
+// ============================================================
+// HELPER: GET TILES PER PAGE BASED ON VIEWPORT WIDTH
+// ============================================================
+function getTilesPerPage() {
+  const width = window.innerWidth;
+  
+  if (width >= 1400) return 6;
+  if (width >= 1100) return 5;
+  if (width >= 800) return 4;
+  if (width >= 500) return 3;
+  return 2; // Mobile
+}
+
+// ============================================================
+// SCROLL ROW PAGINATION
+// ============================================================
+function scrollRowPage(rowTiles, direction, rowContent) {
+  const tilesPerPage = getTilesPerPage();
+  const currentPage = parseInt(rowTiles.getAttribute('data-current-page') || '0');
+  const totalTiles = rowTiles.children.length;
+  const totalPages = Math.ceil(totalTiles / tilesPerPage);
+  
+  let newPage = currentPage;
+  
+  if (direction === 'right' && currentPage < totalPages - 1) {
+    newPage = currentPage + 1;
+  } else if (direction === 'left' && currentPage > 0) {
+    newPage = currentPage - 1;
+  }
+  
+  // Calculate transform using row width
+  // This ensures we scroll by exactly one full page of visible tiles
+  const rowWidth = rowContent.offsetWidth;
+  const offset = newPage * rowWidth;
+  
+  // Apply transform
+  rowTiles.style.transform = `translateX(-${offset}px)`;
+  rowTiles.setAttribute('data-current-page', newPage);
+  
+  // Update button visibility
+  const leftBtn = rowContent.querySelector('.row-scroll-btn-left');
+  const rightBtn = rowContent.querySelector('.row-scroll-btn-right');
+  updateScrollButtons(rowTiles, leftBtn, rightBtn);
+}
+
+// ============================================================
+// UPDATE SCROLL BUTTON VISIBILITY
+// ============================================================
+function updateScrollButtons(rowTiles, leftBtn, rightBtn) {
+  const tilesPerPage = getTilesPerPage();
+  const currentPage = parseInt(rowTiles.getAttribute('data-current-page') || '0');
+  const totalTiles = rowTiles.children.length;
+  const totalPages = Math.ceil(totalTiles / tilesPerPage);
+  
+  // Hide left button on first page
+  if (currentPage === 0) {
+    leftBtn.classList.add('hidden');
+  } else {
+    leftBtn.classList.remove('hidden');
+  }
+  
+  // Hide right button on last page or if not enough tiles
+  if (currentPage >= totalPages - 1 || totalTiles <= tilesPerPage) {
+    rightBtn.classList.add('hidden');
+  } else {
+    rightBtn.classList.remove('hidden');
+  }
 }
 
 // ============================================================
@@ -319,12 +420,13 @@ function createBirthdayGirlRow() {
   rowTitle.textContent = `${CONFIG.birthdayPersonName}'s Story`;
   rowContainer.appendChild(rowTitle);
   
-  // Row content
+  // Row content (with pagination)
   const rowContent = document.createElement('div');
   rowContent.className = 'row-content';
   
   const rowTiles = document.createElement('div');
   rowTiles.className = 'row-tiles';
+  rowTiles.setAttribute('data-current-page', '0');
   
   // Add photo tiles
   CONFIG.birthdayGirlTiles.forEach(photoData => {
@@ -332,8 +434,17 @@ function createBirthdayGirlRow() {
     rowTiles.appendChild(tile);
   });
   
+  // Add scroll buttons
+  const leftBtn = createScrollButton('left', rowTiles);
+  const rightBtn = createScrollButton('right', rowTiles);
+  
+  rowContent.appendChild(leftBtn);
   rowContent.appendChild(rowTiles);
+  rowContent.appendChild(rightBtn);
   rowContainer.appendChild(rowContent);
+  
+  // Initialize button visibility
+  updateScrollButtons(rowTiles, leftBtn, rightBtn);
   
   return rowContainer;
 }
@@ -443,7 +554,34 @@ function initPolishFeatures() {
   // 3. Ambient row scroll animations
   initScrollAnimations();
   
+  // 4. Handle window resize for responsive pagination
+  initResizeHandler();
+  
   console.log('✨ Polish features initialized');
+}
+
+// Handle window resize to reset pagination
+function initResizeHandler() {
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // Reset all rows to page 0 on resize
+      const allRowTiles = document.querySelectorAll('.row-tiles');
+      allRowTiles.forEach(rowTiles => {
+        rowTiles.style.transform = 'translateX(0)';
+        rowTiles.setAttribute('data-current-page', '0');
+        
+        // Update button visibility
+        const rowContent = rowTiles.parentElement;
+        const leftBtn = rowContent.querySelector('.row-scroll-btn-left');
+        const rightBtn = rowContent.querySelector('.row-scroll-btn-right');
+        if (leftBtn && rightBtn) {
+          updateScrollButtons(rowTiles, leftBtn, rightBtn);
+        }
+      });
+    }, 250); // Debounce resize events
+  });
 }
 
 // Animate "Continue Watching" progress bars
