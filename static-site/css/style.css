@@ -202,11 +202,12 @@ input, textarea, select {
 .navbar-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   height: 100%;
   padding: 0 var(--space-xl);
 }
 
+/*
 .navbar-logo {
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-bold);
@@ -214,6 +215,17 @@ input, textarea, select {
   letter-spacing: -1px;
   transform: perspective(100px) rotateY(-2deg);
   display: inline-block;
+}
+*/
+
+.navbar-logo {
+  flex-shrink: 0;
+  margin-right: 32px;
+}
+
+.navbar-logo img {
+  width: 120px;
+  display: block;
 }
 
 .navbar-menu {
