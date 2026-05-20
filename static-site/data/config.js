@@ -217,7 +217,7 @@ const CONFIG = {
   // The video modal will play this when the tile is clicked
   // ============================================================
   video: {
-    path:        "assets/video/birthday.mp4",
+    path:        "assets/video/HappyBirthdayN.mp4",
     posterImage: "assets/hero/video-poster.jpg",
     tileTitle:   "A Special Birthday Feature",
     tileSubtext: "A message just for you"
