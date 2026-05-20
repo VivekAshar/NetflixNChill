@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Test</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    .test-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #141414;
+      padding: 30px;
+      border-radius: 8px;
+    }
+    .status {
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    .success { background: rgba(70, 211, 105, 0.2); color: #46d369; }
+    .error { background: rgba(229, 9, 20, 0.2); color: #E50914; }
+    .info { background: rgba(255, 255, 255, 0.1); color: #fff; }
+    button {
+      background: #E50914;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 5px;
+    }
+    button:hover { background: #F40612; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+    }
+    h2 { color: #E50914; }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>🔬 Login System Test</h1>
+    
+    <div id="loading" class="status info">⏳ Running tests...</div>
+    
+    <div id="test-results"></div>
+    
+    <h2>Manual Test Form</h2>
+    <form id="manual-test">
+      <input type="text" id="test-user" placeholder="Username" value="xxx">
+      <input type="password" id="test-pass" placeholder="Password" value="xxx">
+      <button type="submit">Test Login</button>
+    </form>
+    <div id="manual-result"></div>
+    
+    <div style="margin-top: 20px;">
+      <button onclick="location.href='login.html'">Open Real Login Page</button>
+      <button onclick="location.href='profiles.html'">Open Profiles Page</button>
+    </div>
+  </div>
+
+  <script src="data/config.js"></script>
+  <script>
+    const results = [];
+    
+    // Test 1: CONFIG loaded
+    function test1() {
+      if (typeof CONFIG !== 'undefined') {
+        results.push({ name: 'CONFIG object loaded', status: 'success', detail: 'CONFIG is defined' });
+      } else {
+        results.push({ name: 'CONFIG object loaded', status: 'error', detail: 'CONFIG is undefined' });
+      }
+    }
+    
+    // Test 2: Credentials exist
+    function test2() {
+      if (CONFIG && CONFIG.credentials) {
+        results.push({ 
+          name: 'Credentials exist', 
+          status: 'success', 
+          detail: `username: "${CONFIG.credentials.username}", password: "${CONFIG.credentials.password}"` 
+        });
+      } else {
+        results.push({ name: 'Credentials exist', status: 'error', detail: 'CONFIG.credentials is undefined' });
+      }
+    }
+    
+    // Test 3: profiles.html exists
+    function test3() {
+      fetch('profiles.html')
+        .then(response => {
+          if (response.ok) {
+            results.push({ name: 'profiles.html exists', status: 'success', detail: 'File is accessible' });
+          } else {
+            results.push({ name: 'profiles.html exists', status: 'error', detail: `HTTP ${response.status}` });
+          }
+          displayResults();
+        })
+        .catch(err => {
+          results.push({ name: 'profiles.html exists', status: 'error', detail: err.message });
+          displayResults();
+        });
+    }
+    
+    // Test 4: Form elements exist
+    function test4() {
+      fetch('login.html')
+        .then(response => response.text())
+        .then(html => {
+          const hasForm = html.includes('id="login-form"');
+          const hasUsername = html.includes('id="username"');
+          const hasPassword = html.includes('id="password"');
+          
+          if (hasForm && hasUsername && hasPassword) {
+            results.push({ name: 'Login form elements', status: 'success', detail: 'All form elements present' });
+          } else {
+            results.push({ 
+              name: 'Login form elements', 
+              status: 'error', 
+              detail: `Form: ${hasForm}, Username: ${hasUsername}, Password: ${hasPassword}` 
+            });
+          }
+          displayResults();
+        })
+        .catch(err => {
+          results.push({ name: 'Login form elements', status: 'error', detail: err.message });
+          displayResults();
+        });
+    }
+    
+    // Test 5: login.js logic simulation
+    function test5() {
+      const testUsername = 'xxx';
+      const testPassword = 'xxx';
+      const correctUsername = CONFIG.credentials.username;
+      const correctPassword = CONFIG.credentials.password;
+      
+      if (testUsername === correctUsername && testPassword === correctPassword) {
+        results.push({ 
+          name: 'Credential validation logic', 
+          status: 'success', 
+          detail: 'Logic works correctly with "xxx"/"xxx"' 
+        });
+      } else {
+        results.push({ 
+          name: 'Credential validation logic', 
+          status: 'error', 
+          detail: `Expected "${correctUsername}"/"${correctPassword}", tested with "${testUsername}"/"${testPassword}"` 
+        });
+      }
+    }
+    
+    function displayResults() {
+      const container = document.getElementById('test-results');
+      const loading = document.getElementById('loading');
+      loading.style.display = 'none';
+      
+      container.innerHTML = results.map(r => `
+        <div class="status ${r.status}">
+          <strong>${r.status === 'success' ? '✅' : '❌'} ${r.name}</strong><br>
+          <small>${r.detail}</small>
+        </div>
+      `).join('');
+    }
+    
+    // Run tests
+    test1();
+    test2();
+    test5();
+    test3();
+    test4();
+    
+    // Manual test form
+    document.getElementById('manual-test').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('test-user').value.trim();
+      const password = document.getElementById('test-pass').value;
+      const result = document.getElementById('manual-result');
+      
+      console.log('Testing login with:', username, password);
+      console.log('Expected:', CONFIG.credentials.username, CONFIG.credentials.password);
+      
+      if (username === CONFIG.credentials.username && password === CONFIG.credentials.password) {
+        result.innerHTML = '<div class="status success">✅ Login successful! Redirecting would work.</div>';
+        setTimeout(() => {
+          result.innerHTML += '<div class="status info">Simulating redirect to profiles.html...</div>';
+          setTimeout(() => {
+            window.location.href = 'profiles.html';
+          }, 1000);
+        }, 1000);
+      } else {
+        result.innerHTML = `<div class="status error">❌ Login failed!<br>Entered: "${username}" / "${password}"<br>Expected: "${CONFIG.credentials.username}" / "${CONFIG.credentials.password}"</div>`;
+      }
+    });
+  </script>
+</body>
+</html>
