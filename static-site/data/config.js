@@ -66,71 +66,59 @@ const CONFIG = {
   // URL at themoviedb.org/movie/XXXXX and add it to this list.
   // ============================================================
   srkFilmIds: [
-    9542,   // Dilwale Dulhania Le Jayenge (DDLJ)
-    9543,   // Kabhi Khushi Kabhie Gham
-    19911,  // Kal Ho Naa Ho
-    11645,  // Dil To Pagal Hai
-    9548,   // Devdas (2002)
-    14367,  // Chak De! India
-    29754,  // My Name Is Khan
-    25452,  // Swades
-    846433, // Pathaan
-    83901,  // Jab Tak Hai Jaan
-    9550,   // Veer-Zaara
-    384592, // Raees
-    11788,  // Om Shanti Om
-    111838, // Chennai Express
-    296906, // Dilwale (2015)
-    9555,   // Kuch Kuch Hota Hai
-    9541,   // Mohabbatein
-    9549,   // Asoka
-    9551,   // Kabhi Alvida Naa Kehna
-    9552,   // Don (2006)
-    57212,  // Don 2
-    9556,   // Dil Se
-    9557,   // Karan Arjun
-    9558,   // Baazigar
-    9559,   // Darr
-    9560,   // Yes Boss
-    9561,   // Pardes
-    9562,   // Deewana
-    9563,   // Badshah
-    9564,   // Josh
-    9565,   // Koyla
-    9566,   // Duplicate
-    391378, // Zero
-    927107, // Jawan
-    11054,  // Fan
-    9568,   // Anjaam
-    9569,   // Guddu
-    9570,   // Ram Jaane
-    9571,   // Chamatkaar
-    9572,   // King Uncle
-    9573,   // Raju Ban Gaya Gentleman
-    9574,   // English Babu Desi Mem
-    9575,   // Trimurti
-    9576,   // Kabhi Haan Kabhi Naa
-    9577,   // Hum Tumhare Hain Sanam
-    248477, // Happy New Year
-    9579,   // Mohabbat
-    9566    // Duplicate (repeated for variety)
+    // ---- Verified TMDB IDs (confirmed at themoviedb.org) ----
+    19404,  // Dilwale Dulhania Le Jayenge (1995)
+    10757,  // Kabhi Khushi Kabhie Gham (2001)
+    4254,   // Kal Ho Naa Ho (2003)
+    13986,  // Dil To Pagal Hai (1997)
+    15917,  // Devdas (2002)
+    14163,  // Chak De! India (2007)
+    26022,  // My Name Is Khan (2010)
+    15774,  // Swades (2004)
+    864692, // Pathaan (2023)
+    132316, // Jab Tak Hai Jaan (2012)
+    4251,   // Veer-Zaara (2004)
+    363343, // Raees (2017)
+    8079,   // Om Shanti Om (2007)
+    205022, // Chennai Express (2013)
+    370665, // Dilwale (2015)
+    11854,  // Kuch Kuch Hota Hai (1998)
+    11518,  // Mohabbatein (2000)
+    17501,  // Don (2006)
+    41109,  // Don 2 (2011)
+    21210,  // Dil Se.. (1998)
+    19657,  // Baazigar (1993)
+    35053,  // Darr (1993)
+    14395,  // Kabhi Alvida Naa Kehna (2006)
+    377985, // Fan (2016)
+    496076, // Zero (2018)
+    872906, // Jawan (2023)
+    93519,  // Karan Arjun (1995)
+    159090, // Duplicate (1998)
+    4435,   // Asoka (2001)
+    14072,  // Rab Ne Bana Di Jodi (2008)
+    277432, // Happy New Year (2014)
+    4252,   // Chalte Chalte (2003)
+    14134,  // Main Hoon Na (2004)
+    960876, // Dunki (2023)
+    131940, // Josh (2000)
+    114436, // Anjaam (1994)
+    15419,  // Kabhi Haan Kabhi Naa (1994)
+    41902,  // Baadshah (1999)
+    41517,  // Ra.One (2011)
+    // ---- To add more: go to themoviedb.org, search the film, copy the ID from the URL ----
   ],
 
-  // ============================================================
-  // NETFLIX ORIGINAL BADGE — These TMDB IDs get a special badge
-  // ============================================================
-  srkBadgeIds: [9542, 14367, 846433, 927107],
+  // These TMDB IDs get a "Netflix Original" badge
+  srkBadgeIds: [19404, 14163, 864692, 872906],
 
-  // ============================================================
-  // CONTINUE WATCHING — fake progress percentages per film
-  // These create the progress bar under tiles in "Continue Watching" row
-  // ============================================================
+  // "Continue Watching" row — fake progress percentages per film
   continueWatching: [
-    { id: 9542,  progress: 72 },  // DDLJ - 72% watched
-    { id: 9543,  progress: 45 },  // K3G - 45% watched
-    { id: 19911, progress: 88 },  // Kal Ho Naa Ho - 88% watched
-    { id: 11645, progress: 30 },  // Dil To Pagal Hai - 30% watched
-    { id: 9548,  progress: 60 }   // Devdas - 60% watched
+    { id: 19404,  progress: 72 },
+    { id: 10757,  progress: 45 },
+    { id: 4254,   progress: 88 },
+    { id: 13986,  progress: 30 },
+    { id: 15917,  progress: 60 }
   ],
 
   // ============================================================

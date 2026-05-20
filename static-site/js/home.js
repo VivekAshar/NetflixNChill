@@ -150,17 +150,28 @@ function createRow(title, rowIndex, friendTile) {
   // Check if this is "Continue Watching" row
   const isContinueWatching = title.toLowerCase().includes('continue watching');
   
-  // Add film tiles
+  // Randomize friend tile position per row
+  // Pattern: [0, 1, 2, 4, 0, 3, 1, 4, 2, 3] for rows 0-9
+  const friendTilePositions = [0, 1, 2, 4, 0, 3, 1, 4, 2, 3];
+  const friendTilePosition = friendTilePositions[rowIndex % friendTilePositions.length];
+  
+  // Add film tiles with friend tile at random position
   rowFilms.forEach((film, filmIndex) => {
-    const tile = createFilmTile(film, isContinueWatching);
-    rowTiles.appendChild(tile);
-    
-    // Add friend tile after 3rd film
-    if (filmIndex === 2 && friendTile) {
+    // Insert friend tile at predetermined position
+    if (filmIndex === friendTilePosition && friendTile) {
       const friendTileElem = createFriendTile(friendTile);
       rowTiles.appendChild(friendTileElem);
     }
+    
+    const tile = createFilmTile(film, isContinueWatching);
+    rowTiles.appendChild(tile);
   });
+  
+  // If friend tile position is beyond films length, add at end
+  if (friendTilePosition >= rowFilms.length && friendTile) {
+    const friendTileElem = createFriendTile(friendTile);
+    rowTiles.appendChild(friendTileElem);
+  }
   
   // Add special video tile to last row
   if (rowIndex === CONFIG.rows.length - 1 && CONFIG.video) {
