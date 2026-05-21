@@ -89,3 +89,4 @@ credentials.json
 *.key
 .credentials
 static-site/assets/video/HBDNetflix.mp4
+docs/assets/video/HBDNetflix.mp4
