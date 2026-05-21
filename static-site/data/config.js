@@ -248,7 +248,7 @@ const CONFIG = {
   // The video modal will play this when the tile is clicked
   // ============================================================
   video: {
-    path:        "assets/video/HappyBirthdayN.mp4",
+    path:        "assets/video/HBDNetflix.mp4",
     posterImage: "assets/hero/thumbnail.jpg",
     tileTitle:   "Go Goa Gone",
     tileSubtext: "Here is something for you, it ain't much but it's honest work"
