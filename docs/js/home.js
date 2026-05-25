@@ -417,7 +417,7 @@ function createBirthdayGirlRow() {
   // Row title
   const rowTitle = document.createElement('h2');
   rowTitle.className = 'row-title';
-  rowTitle.textContent = `${CONFIG.birthdayPersonName}'s Story`;
+  rowTitle.textContent = `How I Met Your Mother`;
   rowContainer.appendChild(rowTitle);
   
   // Row content (with pagination)

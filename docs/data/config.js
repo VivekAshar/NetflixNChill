@@ -12,8 +12,8 @@ const CONFIG = {
   // The login page will check against these values
   // ============================================================
   credentials: {
-    username: "xxx",
-    password: "xxx"
+    username: "quest@crisp.com",
+    password: "Chilis"
   },
 
   // ============================================================
@@ -191,54 +191,54 @@ const CONFIG = {
   // ============================================================
   friendTiles: [
     {
-      image: "assets/friends/friend1.jpg",
-      title: "From Rahul",
-      synopsis: "Happy birthday! You make every room brighter. Wishing you a year as amazing as you are!"
+      image: "assets/friends/bhavs.jpg",
+      title: "From Bhavs",
+      synopsis: "In a world moving too fast, she arrives like yellow sunlight — soft, steady, and impossible not to gravitate toward. By day, she can unravel the world with thought-provoking conversations; by night, she’s laughing on a dance floor with a drink in hand, living like joy is its own rebellion.Happy Birthday, my moon."
     },
     {
-      image: "assets/friends/friend2.jpg",
-      title: "From Anjali",
-      synopsis: "To my favourite person — thank you for being you. Have the most magical birthday!"
+      image: "assets/friends/ruchi.jpg",
+      title: "From Ruchi",
+      synopsis: "Two girls growing up through gossip sessions, chaotic college days, unfiltered conversations, protecting each other from bad decisions (and sometimes encouraging them :P), and somehow becoming each other’s safe space in the middle of life’s madness.Happy Birthday Babe, love you"
     },
     {
-      image: "assets/friends/friend3.jpg",
-      title: "From Simran",
-      synopsis: "You deserve every happiness today and always. Love you loads, happy birthday bestie!"
+      image: "assets/friends/saee.jpg",
+      title: "From Saee",
+      synopsis: "Happy birthday! Thanks for being awesome. Not just because you're nice to me (which you are), but for just being nice. I think the ideals you keep are admirable. It makes me feel like I'm not delusional for believing in good things. I feel like I can talk you about anything. Thanks for being a great senior/manager. You're my favorite person in Hyderabad."
     },
     {
-      image: "assets/friends/friend4.jpg",
-      title: "From Rohit",
-      synopsis: "Many more years of laughter, adventures, and terrible decisions together. Happy birthday!"
+      image: "assets/friends/amrita.jpg",
+      title: "From Amrita",
+      synopsis: "Neha, Many many happy returns of the day! Needless to say that you get all the happiness and prosperity that you wish and desire for. I wish for your well-being in all aspects and hope that you are content in whatever you do. The flat misses you and we miss you more. Come back soooooon"
     },
     {
-      image: "assets/friends/friend5.jpg",
-      title: "From Pooja",
-      synopsis: "Wishing you a birthday as stunning and warm as your smile. Truly one of a kind!"
+      image: "assets/friends/rishi.jpg",
+      title: "From Rishi",
+      synopsis: "Happy Birthday! Because you didn't call me back, I have to wish you via a picture"
     },
     {
-      image: "assets/friends/friend6.jpg",
-      title: "From Arjun",
-      synopsis: "Here's to you — the person who makes everything more fun. Happy birthday, legend!"
+      image: "assets/friends/smirthi.jpg",
+      title: "From Smirthi",
+      synopsis: "As a fellow survivor of the beautiful horrors of AP and surviving life with instincts correct 99% of the time, CEO ma’am now continues her journey as the sole carrier of CRISP lore and professional chaos. Wise beyond her years, undefeated in intuition, the person i will win garba season with — this season promises more lore, more madness, and hopefully the city of her dreams. Happy Birthday!"
     },
     {
-      image: "assets/friends/friend7.jpg",
-      title: "From Meera",
-      synopsis: "You are the SRK of our friend group — effortlessly charming. Happy birthday!"
+      image: "assets/friends/manisha.jpg",
+      title: "From Manisha",
+      synopsis: "Happy Birthdayyyyyy, check DM!"
     },
     {
-      image: "assets/friends/friend8.jpg",
-      title: "From Karan",
-      synopsis: "Cheers to another year of you being absolutely iconic. We love you endlessly!"
+      image: "assets/friends/modiji.jpg",
+      title: "From PMO",
+      synopsis: "Mitronnnn… aaj Neha ji ka janmadin sirf birthday nahi, ek maha-utsav hai! Main deshvasiyon se kehna chahta hoon, 'yaad rakhiye… acche din toh aate jaate rahenge, lekin Neha ji jaisi woke communist baar baar nahi aati!'"
     },
     {
-      image: "assets/friends/friend9.jpg",
-      title: "From Nisha",
-      synopsis: "Happy birthday to the person who deserves the whole world. Today is all about you!"
+      image: "assets/friends/marx.jpg",
+      title: "From Karl Marx",
+      synopsis: "Neha, your birthday is not just a celebration… it is a revolution against the bourgeoisie. The means of cake production must now belong to the people. Party lovers of the world, unite — and wish Comrade Neha the happiest birthday!"
     },
     {
-      image: "assets/friends/friend10.jpg",
-      title: "From Dev",
-      synopsis: "May this year bring you everything you have ever dreamed of. Happy birthday superstar!"
+      image: "assets/friends/harry.jpg",
+      title: "From Hermione Granger",
+      synopsis: "Honestly, Nehaaa, Harry and Ron can barely remember their own homework, but forgetting your birthday? Completely mental. Wishing you a year full of Felix Felicis luck, endless Butterbeer, and absolutely no detentions from McGonagall."
     }
   ],
 
