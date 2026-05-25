@@ -54,9 +54,9 @@ const CONFIG = {
     "Salmaan is my besstttt fraaaaaand",
     "Because You Watched DDLJ",
     "SRK Running After Trains Cardio Collection",
-    "Rahul, Naam Toh Suna Hoga Collection",
-    "SRK Award Winners",
-    "Apki Halwaii ki dukaan toh mein...",
+    "Mitroooon, Naam Toh Suna Hoga Collection",
+    "Your Birthday? You mean our...",
+    "Garudwar, Naagshakti, Cheelghaat and Mehnatkash",
     "Because you are dating Vivek, Senorita"
   ],
 
@@ -181,7 +181,7 @@ const CONFIG = {
     { image: "assets/birthday-girl/9.jpg",  title: "Chapter 9",  subtitle: "The one where they join Kami's maketing team" },
     { image: "assets/birthday-girl/10.jpg", title: "Chapter 10", subtitle: "The one where they watch Chelsea FC play" },
     { image: "assets/birthday-girl/11.jpg", title: "Chapter 11", subtitle: "The one with Hyderabadi Irani chai" },
-    { image: "assets/birthday-girl/12.jpg", title: "Chapter 12", subtitle: "The one where they go to Goa.. without a licence" }
+    { image: "assets/birthday-girl/12.jpg", title: "Chapter 12", subtitle: "The one where they lose their minds... errrr" }
   ],
 
   // ============================================================
@@ -218,12 +218,12 @@ const CONFIG = {
     {
       image: "assets/friends/smirthi.jpg",
       title: "From Smirthi",
-      synopsis: "As a fellow survivor of the beautiful horrors of AP and surviving life with instincts correct 99% of the time, CEO ma’am now continues her journey as the sole carrier of CRISP lore and professional chaos. Wise beyond her years, undefeated in intuition, the person i will win garba season with — this season promises more lore, more madness, and hopefully the city of her dreams. Happy Birthday!"
+      synopsis: "Fellow survivor of the horrors of AP and surviving life with instincts correct 99% of the time, CEO ma’am now continues her journey as the sole carrier of CRISP chaos. Wise beyond her years, undefeated in intuition, the person i will win garba season with — this season promises more lore, madness, and the city of her dreams. HBD"
     },
     {
       image: "assets/friends/manisha.jpg",
       title: "From Manisha",
-      synopsis: "Happy Birthdayyyyyy, check DM!"
+      synopsis: "3 years, 2 strong-headed girls, 1 workplace. Co-workers by day, besties by night.Balancing deadlines with existential crises, trauma-bonding over bad bosses, evaluating budgets and boys (not always in that order), and working out of cafes, fields, trains, flights, buses, cabs, and occasionally, the office. What a wild ride, happy birthday"
     },
     {
       image: "assets/friends/modiji.jpg",
